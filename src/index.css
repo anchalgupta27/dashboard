@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+/* Custom base styles without any color definitions */
+@layer base {
+  :root {
+    /* Typography */
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    /* Text rendering optimizations */
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1 {
+    @apply text-5xl leading-tight;
+  }
+
+  a {
+    @apply font-medium no-underline;
+  }
+
+  button {
+    @apply rounded-lg border border-transparent px-4 py-2 text-base font-medium cursor-pointer transition-colors duration-200;
+  }
+
+  /* Keep focus outline for accessibility */
+  button:focus,
+  button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
+}
