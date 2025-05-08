@@ -8,6 +8,7 @@ import type { User } from './features/entity/user';
 import OrderPage  from './pages/Order/OrderPage';
 import PrivateRoute from './components/privateRoute';
 import RiderPage  from './pages/Rider/RiderPage';
+import OrderDetailPage from './pages/OrderDetail/OrderDetail';
 
 const App: React.FC = () => {
   const [user, setUser] = React.useState<User | null>(); // You can later replace this with actual login state
@@ -38,6 +39,14 @@ const App: React.FC = () => {
             element={
               <PrivateRoute user={user}>
                 <RiderPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/order/:id/detail"
+            element={
+              <PrivateRoute user={user}>
+                <OrderDetailPage />
               </PrivateRoute>
             }
           />
