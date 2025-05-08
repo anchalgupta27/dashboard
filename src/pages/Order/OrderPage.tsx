@@ -5,7 +5,7 @@ import { baseURL } from '../../BaseUrl';
 
 const OrderPage = () => {
   const { orders } = useOrders();
-  const [ridersMap, setRidersMap] = useState<Record<string, string>>({}); // riderId -> riderName
+  const [ridersMap, setRidersMap] = useState<Record<string, string>>({});
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
@@ -38,34 +38,40 @@ const OrderPage = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-semibold mb-6 text-center">Orders</h1>
+    <div className="max-w-7xl mx-auto px-4 py-10">
+      <h1 className="text-4xl font-bold text-center text-gray-800 mb-10">Orders Dashboard</h1>
 
-      {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-6 py-3 rounded mb-6 text-center">
+          {error}
+        </div>
+      )}
 
-      <div className="overflow-x-auto shadow-md rounded-lg">
-        <table className="min-w-full table-auto bg-white">
-          <thead>
-            <tr className="bg-gray-200 text-left text-gray-700">
-              <th className="px-6 py-3">Order ID</th>
-              <th className="px-6 py-3">Rider Name</th>
-              <th className="px-6 py-3">Status</th>
-              <th className="px-6 py-3">Cost</th>
+      <div className="overflow-x-auto rounded-lg shadow-lg bg-white">
+        <table className="min-w-full divide-y divide-gray-200 text-sm text-gray-800">
+          <thead className="bg-blue-100 text-gray-700 uppercase tracking-wide text-xs">
+            <tr>
+              <th className="px-6 py-3 text-left">Order ID</th>
+              <th className="px-6 py-3 text-left">Rider</th>
+              <th className="px-6 py-3 text-left">Status</th>
+              <th className="px-6 py-3 text-left">Total Cost</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-gray-100">
             {orders.map((order: any) => (
               <tr
                 key={order._id}
                 onClick={() => handleRowClick(order._id)}
-                className="cursor-pointer hover:bg-blue-50 transition-colors border-b"
+                className="hover:bg-blue-50 cursor-pointer transition-all duration-200"
               >
-                <td className="px-6 py-4 text-sm">{order._id}</td>
-                <td className="px-6 py-4 text-sm">
-                  {order.rider?.riderId ? ridersMap[order.rider.riderId] || 'Assigned' : 'Not Assigned'}
+                <td className="px-6 py-4">{order._id}</td>
+                <td className="px-6 py-4">
+                  {order.rider?.riderId
+                    ? ridersMap[order.rider.riderId] || 'Assigned'
+                    : 'Not Assigned'}
                 </td>
-                <td className="px-6 py-4 text-sm capitalize">{order.status}</td>
-                <td className="px-6 py-4 text-sm">₹{order.totalAmount}</td>
+                <td className="px-6 py-4 capitalize">{order.status}</td>
+                <td className="px-6 py-4 font-medium">₹{order.totalAmount}</td>
               </tr>
             ))}
           </tbody>
